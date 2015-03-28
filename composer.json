@@ -1,0 +1,20 @@
+{
+    "name": "brianium/php-bdd-example",
+    "description": "Demonstrating the full BDD lifecycle with PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Brian Scaturro",
+            "email": "scaturrob@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "peridot-php/peridot": "~1.15",
+        "peridot-php/webdriver-manager": "~1.1",
+        "behat/behat": "~3.0",
+        "behat/mink": "~1.6",
+        "behat/mink-extension": "~2.0",
+        "behat/mink-selenium2-driver": "~1.2"
+    }
+}
