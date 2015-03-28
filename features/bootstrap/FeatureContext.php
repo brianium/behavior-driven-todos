@@ -29,6 +29,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
      */
     public function iShouldSeeAfterWaiting($arg1)
     {
-        $this->getSession()->wait(5000, "document.getElementById('error').innerHTML === '$arg1'");
+        $this->getSession()->wait(5000, "document.documentElement.innerHTML.indexOf('$arg1') > -1;");
     }
 }
