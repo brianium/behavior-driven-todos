@@ -1,0 +1,9 @@
+default:
+  extensions:
+    Behat\MinkExtension:
+      base_url: 'http://todos.com'
+      sessions:
+        default:
+          selenium2:
+            browser: chrome
+    Brianium\Todos\Test\WebDriverExtension:

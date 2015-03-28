@@ -16,5 +16,10 @@
         "behat/mink": "~1.6",
         "behat/mink-extension": "~2.0",
         "behat/mink-selenium2-driver": "~1.2"
+    },
+    "autoload": {
+      "psr-4": {
+        "Brianium\\Todos\\": "src/"
+      }
     }
 }
