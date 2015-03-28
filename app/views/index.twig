@@ -5,12 +5,15 @@
   <body>
     <h1>Todos</h1>
     <p id="error">
-      
+
     </p>
     <input type="text" id="todo" /> <button id="add">add</button>
     <ul id="todos">
       {% for todo in todos %}
-        <li>{{ todo.label }}</li>
+        <li>
+          {{ todo.label }}
+          <input type="checkbox" name="todo_{{ loop.index0 }}" />
+        </li>
       {% endfor %}
     </ul>
 

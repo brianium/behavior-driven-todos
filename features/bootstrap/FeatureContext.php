@@ -14,14 +14,27 @@ use Behat\Behat\Event\ScenarioEvent;
  */
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
+    private static $app;
+
     /**
      * @BeforeSuite
      */
     public static function before()
     {
-        $app = include __DIR__ . '/../../app/app.php';
-        $collection = $app['mongo-client']->brianium->todos;
+        $collection = self::getTodoCollection();
         $collection->drop();
+    }
+
+    /**
+     * Fetch the mongo collection of todos
+     */
+    private static function getTodoCollection()
+    {
+        if (!isset(self::$app)) {
+            self::$app = include __DIR__ . '/../../app/app.php';
+        }
+        $collection = self::$app['mongo-client']->brianium->todos;
+        return $collection;
     }
 
     /**
@@ -30,5 +43,14 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iShouldSeeAfterWaiting($arg1)
     {
         $this->getSession()->wait(5000, "document.documentElement.innerHTML.indexOf('$arg1') > -1;");
+    }
+
+    /**
+     * @Given I have a todo :arg1
+     */
+    public function iHaveATodo($arg1)
+    {
+        $collection = self::getTodoCollection();
+        $collection->insert(['label' => $arg1]);
     }
 }
