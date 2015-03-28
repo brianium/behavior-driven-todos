@@ -48,7 +48,10 @@ class TodosController
     public function create(Request $request)
     {
         $payload = json_decode($request->getContent(), true);
-        $this->todos->insert($payload);
-        return JsonResponse::create($payload);
+        if (! $this->todos->findOne(['label' => $payload['label']])) {
+            $this->todos->insert($payload);
+            return JsonResponse::create($payload);
+        }
+        return JsonResponse::create(['error' => 'Duplicate todo found'], 400);
     }
 }

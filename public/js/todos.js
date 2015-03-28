@@ -2,7 +2,8 @@
 
   var todo = $('#todo'),
       add = $('#add'),
-      list = $('#todos');
+      list = $('#todos'),
+      errorMessage = $('#error');
 
   /**
    * Returns an event handler that appends
@@ -26,7 +27,7 @@
    * @param {String} val the todo label
    */
   function create(val) {
-    $.ajax({
+    return $.ajax({
       method: 'POST',
       url: '/todos',
       data: JSON.stringify({label: val}),
@@ -35,6 +36,22 @@
     });
   }
 
-  add.click(_.compose(create, append(list, todo)));
+  /**
+   * Handle a todo creation response
+   *
+   * @param {Promise} promise
+   */
+  function postCreate(promise) {
+    promise.fail(function (xhr) {
+      if (xhr.status == 400) {
+        errorMessage.text("Todo already exists");
+      }
+    });
+  }
+
+  /**
+   * Create add button event stream
+   */
+  add.click(_.compose(postCreate, create, append(list, todo)));
 
 })();

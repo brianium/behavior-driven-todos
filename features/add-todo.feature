@@ -16,3 +16,9 @@ Scenario: revisiting added todos
   And I press "add"
   And I reload the page
   Then I should see "Pick up dinner"
+
+Scenario: adding a duplicate todo
+  Given I am on "/"
+  When I fill in "todo" with "Pick up dinner"
+  And I press "add"
+  Then I should see "Todo already exists" after waiting

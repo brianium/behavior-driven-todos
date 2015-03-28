@@ -23,4 +23,12 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         $collection = $app['mongo-client']->brianium->todos;
         $collection->drop();
     }
+
+    /**
+     * @Then I should see :arg1 after waiting
+     */
+    public function iShouldSeeAfterWaiting($arg1)
+    {
+        $this->getSession()->wait(5000, "document.getElementById('error').innerHTML === '$arg1'");
+    }
 }
