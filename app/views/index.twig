@@ -1,2 +1,18 @@
-<h1>Todos</h1>
-<input type="text" id="todo" />
+<html>
+  <head>
+    <title>Todo List</title>
+  </head>
+  <body>
+    <h1>Todos</h1>
+    <input type="text" id="todo" /> <button id="add">add</button>
+    <ul id="todos">
+      {% for todo in todos %}
+        <li>{{ todo.label }}</li>
+      {% endfor %}
+    </ul>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="js/todos.js"></script>
+  </body>
+</html>

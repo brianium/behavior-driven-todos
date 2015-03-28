@@ -3,7 +3,7 @@ namespace Brianium\Todos\Test;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Behat\Testwork\EventDispatcher\Event\BeforeSuiteTested;
-use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
+use Behat\Testwork\EventDispatcher\Event\AfterSuiteTested;
 use Peridot\WebDriverManager\Manager;
 
 class WebDriverListener implements EventSubscriberInterface
@@ -20,7 +20,7 @@ class WebDriverListener implements EventSubscriberInterface
     {
         return array(
             BeforeSuiteTested::BEFORE   => array('startSelenium', 10),
-            ExerciseCompleted::AFTER => array('stopSelenium', -11)
+            AfterSuiteTested::AFTER => array('stopSelenium', -10)
         );
     }
 

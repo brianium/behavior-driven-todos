@@ -5,8 +5,29 @@ use Brianium\Todos\Controller\TodosController;
 describe('TodosController', function () {
 
     beforeEach(function () {
+        $loader = new Twig_Loader_Filesystem(__DIR__ . '/../../app/views');
+        $twig = new Twig_Environment($loader);
+
         $this->collection = $this->getProphet()->prophesize('MongoCollection');
-        $this->controller = new TodosController($this->collection->reveal());
+        $this->controller = new TodosController($this->collection->reveal(), $twig);
+    });
+
+    describe('->index()', function () {
+
+        beforeEach(function () {
+            $iterator = new ArrayIterator([
+                ['label' => 'Get groceries']
+            ]);
+            $this->collection->find()->willReturn($iterator);
+        });
+
+        it('should render the persisted todos', function () {
+            $response = $this->controller->index();
+
+            $content = $response->getContent();
+
+            assert(strstr($content, 'Get groceries') !== false);
+        });
     });
 
     describe('->create()', function () {

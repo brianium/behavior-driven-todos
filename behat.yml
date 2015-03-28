@@ -6,4 +6,3 @@ default:
         default:
           selenium2:
             browser: chrome
-    Brianium\Todos\Test\WebDriverExtension:

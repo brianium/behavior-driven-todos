@@ -15,10 +15,12 @@ use Behat\Behat\Event\ScenarioEvent;
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
     /**
-     * @Given I have not yet created todos
+     * @BeforeSuite
      */
-    public function iHaveNotYetCreatedTodos()
+    public static function before()
     {
-        //throw new PendingException();
+        $app = include __DIR__ . '/../../app/app.php';
+        $collection = $app['mongo-client']->brianium->todos;
+        $collection->drop();
     }
 }

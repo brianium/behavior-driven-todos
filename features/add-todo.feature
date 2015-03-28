@@ -7,5 +7,12 @@ So I don't have to retype them
 Scenario: adding a todo
   Given I am on "/"
   When I fill in "todo" with "Get groceries"
-  And I reload the page
+  And I press "add"
   Then I should see "Get groceries"
+
+Scenario: revisiting added todos
+  Given I am on "/"
+  When I fill in "todo" with "Pick up dinner"
+  And I press "add"
+  And I reload the page
+  Then I should see "Pick up dinner"
