@@ -1,4 +1,4 @@
-Feature: viewing the todo input
+Feature: initial visit to the todo app
 
 As a user
 I want to input todos
@@ -8,4 +8,4 @@ Scenario: visiting todos for the first time
   Given I have not yet created todos
   When I am on "/"
   Then I should see "Todos"
-  And I should see an "#todo" element
+  And I should see a "#todo" element
