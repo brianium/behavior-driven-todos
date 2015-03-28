@@ -37,22 +37,26 @@
   }
 
   /**
-   * Handle a todo creation response
+   * Returns an event handler for an error response.
    *
-   * @param {Promise} promise
+   * @param {jQuery} errorContainer the element to append an error message to
+   * @param {jQuery} list the list containing the invalid item
+   * @return {Function}
    */
-  function postCreate(promise) {
-    promise.fail(function (xhr) {
-      if (xhr.status == 400) {
-        errorMessage.text("Todo already exists");
-        $('#todos li:last-child').remove();
-      }
-    });
+  function postCreate(errorContainer, list) {
+    return function (promise) {
+      promise.fail(function (xhr) {
+        if (xhr.status == 400) {
+          errorContainer.text("Todo already exists");
+          list.find('li:last-child').remove();
+        }
+      });
+    };
   }
 
   /**
    * Create add button event stream
    */
-  add.click(_.compose(postCreate, create, append(list, todo)));
+  add.click(_.compose(postCreate(errorMessage, list), create, append(list, todo)));
 
 })();
