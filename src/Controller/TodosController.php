@@ -3,6 +3,7 @@ namespace Brianium\Todos\Controller;
 
 use MongoCollection;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TodosController
 {
@@ -28,5 +29,6 @@ class TodosController
     {
         $payload = json_decode($request->getContent(), true);
         $this->todos->insert($payload);
+        return JsonResponse::create($payload);
     }
 }

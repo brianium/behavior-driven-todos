@@ -13,15 +13,22 @@ describe('TodosController', function () {
 
         beforeEach(function () {
             $this->data = ['label' => 'Get groceries'];
+            $this->request = Request::create('/todos', 'POST', [], [], [], [], json_encode($this->data));
         });
 
         it('should insert a todo', function () {
-            $request = Request::create('/todos', 'POST', [], [], [], [], json_encode($this->data));
-
-            $this->controller->create($request);
+            $this->controller->create($this->request);
 
             $this->collection->insert($this->data)->shouldBeCalled();
             $this->getProphet()->checkPredictions();
+        });
+
+        it('should return the new todo', function () {
+            $response = $this->controller->create($this->request);
+
+            $todo = json_decode($response->getContent());
+
+            assert($todo->label == 'Get groceries');
         });
     });
 });
