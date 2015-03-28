@@ -22,3 +22,4 @@ Scenario: adding a duplicate todo
   When I fill in "todo" with "Pick up dinner"
   And I press "add"
   Then I should see "Todo already exists" after waiting
+  And I should see 2 "#todos li" elements

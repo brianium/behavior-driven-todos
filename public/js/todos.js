@@ -45,6 +45,7 @@
     promise.fail(function (xhr) {
       if (xhr.status == 400) {
         errorMessage.text("Todo already exists");
+        $('#todos li:last-child').remove();
       }
     });
   }
