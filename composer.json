@@ -8,7 +8,10 @@
             "email": "scaturrob@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "silex/silex": "~1.2",
+        "twig/twig": "~1.18"
+    },
     "require-dev": {
         "peridot-php/peridot": "~1.15",
         "peridot-php/webdriver-manager": "~1.1",
