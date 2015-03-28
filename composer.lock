@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dedc16b26e729397644f821d53de25c5",
+    "hash": "126f79f53af89aaf15365f7a4fb8c980",
     "packages": [
         {
             "name": "pimple/pimple",
@@ -1197,16 +1197,16 @@
         },
         {
             "name": "peridot-php/webdriver-manager",
-            "version": "1.1.1",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/peridot-php/webdriver-manager.git",
-                "reference": "80df0c96d4dc4421ad84bc9d3e7a05fac5a59f15"
+                "reference": "a7cd0dcabc7f851821573a27e755fa8b401cb0c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/peridot-php/webdriver-manager/zipball/80df0c96d4dc4421ad84bc9d3e7a05fac5a59f15",
-                "reference": "80df0c96d4dc4421ad84bc9d3e7a05fac5a59f15",
+                "url": "https://api.github.com/repos/peridot-php/webdriver-manager/zipball/a7cd0dcabc7f851821573a27e755fa8b401cb0c9",
+                "reference": "a7cd0dcabc7f851821573a27e755fa8b401cb0c9",
                 "shasum": ""
             },
             "require": {
@@ -1239,7 +1239,12 @@
                 }
             ],
             "description": "Library and command line tool for managing Selenium WebDriver",
-            "time": "2015-03-17 20:04:21"
+            "keywords": [
+                "selenium",
+                "testing",
+                "webdriver"
+            ],
+            "time": "2015-03-28 22:39:52"
         },
         {
             "name": "phpdocumentor/reflection-docblock",

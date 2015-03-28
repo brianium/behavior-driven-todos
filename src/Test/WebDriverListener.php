@@ -2,8 +2,8 @@
 namespace Brianium\Todos\Test;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Behat\Testwork\EventDispatcher\Event\BeforeSuiteTested;
-use Behat\Testwork\EventDispatcher\Event\AfterSuiteTested;
+use Behat\Testwork\EventDispatcher\Event\SuiteTested;
+use Behat\Testwork\EventDispatcher\Event\ExerciseCompleted;
 use Peridot\WebDriverManager\Manager;
 
 class WebDriverListener implements EventSubscriberInterface
@@ -19,8 +19,8 @@ class WebDriverListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            BeforeSuiteTested::BEFORE   => array('startSelenium', 10),
-            AfterSuiteTested::AFTER => array('stopSelenium', -10)
+            SuiteTested::BEFORE   => array('startSelenium', 10),
+            ExerciseCompleted::AFTER => array('stopSelenium', -11)
         );
     }
 
@@ -33,7 +33,7 @@ class WebDriverListener implements EventSubscriberInterface
         $manager = new Manager();
         fwrite(STDOUT, "Updating and starting selenium\n");
         $manager->update();
-        $this->process = $manager->startInBackground();
+        $this->process = $manager->startInBackground(4444, ['-log', tempnam(sys_get_temp_dir(), 'selenium_')]);
         usleep(500000);
     }
 
