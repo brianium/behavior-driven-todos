@@ -2,6 +2,7 @@
 use Silex\Application;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Brianium\Todos\Middleware\UniqueTodo;
+use Brianium\Todos\Converter\TodoConverter;
 
 $app = new Application();
 $app['debug'] = true;
@@ -20,6 +21,10 @@ $app['todos-collection'] = $app->share(function () use ($app) {
     return $app['mongo-client']->brianium->todos;
 });
 
+$app['todo-converter'] = $app->share(function () use ($app) {
+    return new TodoConverter($app['todos-collection']);
+});
+
 // Controllers
 $app['todos.controller'] = $app->share(function () use ($app) {
     $collection = $app['todos-collection'];
@@ -35,5 +40,6 @@ $app->error(function (\Exception $e, $code) {
 $app->get('/', 'todos.controller:index');
 $app->post('/todos', 'todos.controller:create')->before(new UniqueTodo());
 $app->put('/todos/{id}', 'todos.controller:edit')->before(new UniqueTodo());
+$app->delete('/todos/{id}', 'todos.controller:delete')->convert('todo', 'todo-converter:convert');
 
 return $app;

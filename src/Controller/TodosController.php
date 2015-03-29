@@ -73,4 +73,16 @@ class TodosController
         $this->todos->save($todo);
         return JsonResponse::create($todo);
     }
+
+    /**
+     * Delete an existing todo
+     *
+     * @param array $todo
+     * @return Response
+     */
+    public function delete(array $todo)
+    {
+        $this->todos->remove($todo);
+        return Response::create('', 204);
+    }
 }

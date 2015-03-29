@@ -23,13 +23,26 @@ describe('/todos/{id}', function () {
 
     describe('PUT', function () {
 
-        it('should return an error response if the todo already exists', function () use ($edit) {
+        it('should return an error response if the todo already exists', function () {
             $id = (string) $this->document['_id'];
             $this->client->request('PUT', "/todos/$id", [], [], [], '{"label":"Do a thing!"}');
 
             $response = $this->client->getResponse();
 
             assert($response->getStatusCode() === 422);
+        });
+
+    });
+
+    describe('DELETE', function () {
+
+        it('should return a 404 response if the todo is not found', function () {
+            $id = new MongoId();
+            $this->client->request('DELETE', "/todos/" . (string) $id);
+
+            $response = $this->client->getResponse();
+
+            assert($response->getStatusCode() === 404, "unexpected status {$response->getStatusCode()}");
         });
 
     });

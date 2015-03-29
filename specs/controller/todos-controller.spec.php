@@ -98,4 +98,17 @@ describe('TodosController', function () {
         });
 
     });
+
+    describe('->delete()', function () {
+        it('should remove a todo and return 204', function () {
+            $id = new MongoId();
+            $todo = ['_id' => (string) $id];
+            $this->collection->remove($todo)->shouldBeCalled();
+
+            $response = $this->controller->delete($todo);
+
+            assert($response->getStatusCode() === 204);
+            $this->getProphet()->checkPredictions();
+        });
+    });
 });
