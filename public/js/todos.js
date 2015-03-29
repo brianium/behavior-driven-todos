@@ -3,6 +3,7 @@
   var todo = $('#todo'),
       add = $('#add'),
       list = $('#todos'),
+      complete = $('#complete-all'),
       errorMessage = $('#error');
 
   /**
@@ -47,12 +48,29 @@
   function postCreate(errorContainer, list) {
     return function (promise) {
       promise.fail(function (xhr) {
-        if (xhr.status == 400) {
+        if (xhr.status == 422) {
           errorContainer.text("Todo already exists");
           list.find('li:last-child').remove();
         }
       });
     };
+  }
+
+  /**
+   * Request an update to a todo
+   *
+   * @param {HTMLElement} todo
+   * @param {Boolean} done
+   * @return {Promise}
+   */
+  function updateTodo(todo, done) {
+    return [$.ajax({
+      method: 'PUT',
+      url: '/todos/' + todo.dataset.id,
+      data: JSON.stringify({done: done}),
+      contentType: 'application/json',
+      dataType: 'json'
+    }), todo];
   }
 
   /**
@@ -63,13 +81,7 @@
    */
   function toggleTodo(e) {
     var checkbox = e.target;
-    return [$.ajax({
-      method: 'PUT',
-      url: '/todos/' + checkbox.dataset.id,
-      data: JSON.stringify({done: checkbox.checked}),
-      contentType: 'application/json',
-      dataType: 'json'
-    }), checkbox];
+    return updateTodo(checkbox, checkbox.checked);
   }
 
   /**
@@ -82,19 +94,39 @@
         checkbox = result[1],
         listItem = $(checkbox.parentNode);
 
-    promise.done(function () {
-      if (checkbox.checked) {
+    return promise.done(function (todo) {
+      if (todo.done) {
         listItem.addClass('todo-complete');
+        checkbox.checked = true;
       } else {
         listItem.removeClass('todo-complete');
+        checkbox.checked = false;
       }
     });
+  }
+
+  /**
+   * Returns an event handler for completing
+   * all todos.
+   *
+   * @param {jQuery} list
+   * @param {Function} success
+   */
+  function completeAll(list, success) {
+    var pending = list.children('li').not('.todo-complete');
+    return function() {
+      pending.each(function (i, li) {
+        var checkbox = $(li).find('input[type=checkbox]');
+        _.compose(success, updateTodo).call(null, checkbox[0], true);
+      });
+    }
   }
 
   /**
    * Create event streams
    */
   add.click(_.compose(postCreate(errorMessage, list), create, append(list, todo)));
-  list.delegate('input[type=checkbox]', 'click', _.compose(postToggle, toggleTodo))
+  list.delegate('input[type=checkbox]', 'click', _.compose(postToggle, toggleTodo));
+  complete.click(completeAll(list, postToggle));
 
 })();

@@ -13,3 +13,10 @@ Scenario: marking a single todo as done
   And I am on "/"
   When I check "todo_0"
   Then I should see 1 ".todo-complete" element after waiting
+
+Scenario: marking all todos as done
+  Given I have a todo "Get groceries"
+  And I have a todo "Pick up dinner"
+  And I am on "/"
+  When I press "complete-all"
+  Then I should see 2 ".todo-complete" elements after waiting

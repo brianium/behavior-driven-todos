@@ -43,7 +43,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * @Then I should see :arg2 :arg1 element after waiting
+     * @Then I should see :arg2 :arg1 element(s) after waiting
      */
     public function iShouldSeeElementAfterWaiting($number, $selector)
     {
