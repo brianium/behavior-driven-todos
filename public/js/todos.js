@@ -126,7 +126,7 @@
    * Create event streams
    */
   add.click(_.compose(postCreate(errorMessage, list), create, append(list, todo)));
-  list.delegate('input[type=checkbox]', 'click', _.compose(postToggle, toggleTodo));
+  list.delegate('input[type=checkbox]', 'change', _.compose(postToggle, toggleTodo));
   complete.click(completeAll(list, postToggle));
 
 })();

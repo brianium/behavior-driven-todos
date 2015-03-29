@@ -10,9 +10,9 @@
     <input type="text" id="todo" /> <button id="add">add</button>
     <ul id="todos">
       {% for todo in todos %}
-        <li>
+        <li{% if todo.done %} class="todo-complete"{% endif %}>
           {{ todo.label }}
-          <input type="checkbox" data-id="{{ todo._id }}" name="todo_{{ loop.index0 }}"{% if todo.done %} checked="checked" class="todo-complete"{% endif %} />
+          <input type="checkbox" data-id="{{ todo._id }}" name="todo_{{ loop.index0 }}"{% if todo.done %} checked="checked"{% endif %} />
         </li>
       {% endfor %}
     </ul>

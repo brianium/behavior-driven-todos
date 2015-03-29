@@ -68,7 +68,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         if (!isset(self::$app)) {
             self::$app = include __DIR__ . '/../../app/app.php';
         }
-        $collection = self::$app['mongo-client']->brianium->todos;
-        return $collection;
+        return self::$app['todos-collection'];
     }
 }

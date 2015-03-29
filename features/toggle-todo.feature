@@ -1,4 +1,4 @@
-Feature: marking todos as complete
+Feature: toggling the status of a todo
 
 As a user
 I want to be able to mark todos complete
@@ -20,3 +20,9 @@ Scenario: marking all todos as done
   And I am on "/"
   When I press "complete-all"
   Then I should see 2 ".todo-complete" elements after waiting
+
+Scenario: marking a single todo as not done
+  Given I have a done todo "Get groceries"
+  And I am on "/"
+  When I uncheck "todo_0"
+  Then I should see 0 ".todo-complete" elements after waiting
