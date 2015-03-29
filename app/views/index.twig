@@ -13,6 +13,7 @@
         <li{% if todo.done %} class="todo-complete"{% endif %}>
           {{ todo.label }}
           <input type="checkbox" data-id="{{ todo._id }}" name="todo_{{ loop.index0 }}"{% if todo.done %} checked="checked"{% endif %} />
+          <div class="todo-delete-{{ loop.index0 }}">x</div>
         </li>
       {% endfor %}
     </ul>

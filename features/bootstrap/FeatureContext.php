@@ -70,4 +70,21 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         }
         return self::$app['todos-collection'];
     }
+
+    /**
+     * @When I click :arg1
+     */
+    public function iClick($selector)
+    {
+        $element = $this
+            ->getSession()
+            ->getPage()
+            ->find('css', $selector);
+
+        if ($element == null) {
+            throw new Exception("Element $selector not found");
+        }
+
+        $element->click();
+    }
 }
