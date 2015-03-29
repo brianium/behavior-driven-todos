@@ -67,7 +67,7 @@ describe('TodosController', function () {
             $this->collection->findOne(['_id' => $mongoId])->willReturn($todo);
             $this->collection->save($this->data)->shouldBeCalled();
 
-            return $this->controller->edit((string) $mongoId, $this->request);
+            return $this->controller->edit($this->data, $this->request);
         };
 
         it('should modify an existing todo', function () use ($edit) {
@@ -86,15 +86,6 @@ describe('TodosController', function () {
 
             assert($todo->label === 'Get groceries', 'incorrect label');
             assert($todo->done, 'todo is not done');
-        });
-
-        it('should return a not found response if the todo does not exist', function () {
-            $mongoId = new MongoId();
-            $this->collection->findOne(['_id' => $mongoId])->willReturn(null);
-
-            $response = $this->controller->edit((string) $mongoId, $this->request);
-
-            assert($response->getStatusCode() === 404);
         });
 
     });

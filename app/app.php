@@ -39,7 +39,11 @@ $app->error(function (\Exception $e, $code) {
 // Routes
 $app->get('/', 'todos.controller:index');
 $app->post('/todos', 'todos.controller:create')->before(new UniqueTodo());
-$app->put('/todos/{id}', 'todos.controller:edit')->before(new UniqueTodo());
-$app->delete('/todos/{id}', 'todos.controller:delete')->convert('todo', 'todo-converter:convert');
+
+$app->put('/todos/{todo}', 'todos.controller:edit')
+    ->before(new UniqueTodo())
+    ->convert('todo', 'todo-converter:convert');
+
+$app->delete('/todos/{todo}', 'todos.controller:delete')->convert('todo', 'todo-converter:convert');
 
 return $app;

@@ -56,18 +56,12 @@ class TodosController
     /**
      * Edit an existing todo
      *
-     * @param string $id
+     * @param array $todo
      * @param Request $request
      * @return JsonResponse
      */
-    public function edit($id, Request $request)
+    public function edit(array $todo, Request $request)
     {
-        $todo = $this->todos->findOne(['_id' => new \MongoId($id)]);
-
-        if ($todo === null) {
-            return JsonResponse::create(['error' => 'Todo not found'], 404);
-        }
-
         $payload = json_decode($request->getContent(), true);
         $todo = array_merge($todo, $payload);
         $this->todos->save($todo);

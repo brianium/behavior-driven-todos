@@ -32,6 +32,15 @@ describe('/todos/{id}', function () {
             assert($response->getStatusCode() === 422);
         });
 
+        it('should return a 404 response if the todo is not found', function () {
+            $id = new MongoId();
+            $this->client->request('PUT', "/todos/" . (string) $id);
+
+            $response = $this->client->getResponse();
+
+            assert($response->getStatusCode() === 404, "unexpected status {$response->getStatusCode()}");
+        });
+
     });
 
     describe('DELETE', function () {
