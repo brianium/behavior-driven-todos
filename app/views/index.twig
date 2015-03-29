@@ -12,7 +12,7 @@
       {% for todo in todos %}
         <li>
           {{ todo.label }}
-          <input type="checkbox" name="todo_{{ loop.index0 }}" />
+          <input type="checkbox" data-id="{{ todo._id }}" name="todo_{{ loop.index0 }}"{% if todo.done %} checked="checked"{% endif %} />
         </li>
       {% endfor %}
     </ul>

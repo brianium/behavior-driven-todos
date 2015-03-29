@@ -21,5 +21,6 @@ $app['todos.controller'] = $app->share(function () use ($app) {
 
 $app->get('/', 'todos.controller:index');
 $app->post('/todos', 'todos.controller:create');
+$app->put('/todos/{id}', 'todos.controller:edit');
 
 return $app;

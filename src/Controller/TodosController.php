@@ -72,10 +72,9 @@ class TodosController
         }
 
         $payload = json_decode($request->getContent(), true);
-        $todo->label = $payload['label'];
-        $todo->done = $payload['done'];
+        $todo = array_merge($todo, $payload);
 
-        if (! $this->todos->findOne(['label' => $payload['label']])) {
+        if (!isset($payload['label']) || ! $this->todos->findOne(['label' => $payload['label']])) {
             $this->todos->save($todo);
             return JsonResponse::create($todo);
         }

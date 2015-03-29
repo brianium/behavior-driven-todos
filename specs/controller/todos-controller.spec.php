@@ -69,11 +69,11 @@ describe('TodosController', function () {
         });
 
         $edit = function() {
-            $todo = new stdClass;
-            $todo->label = 'Do things';
+            $todo = [];
+            $todo['label'] = 'Do things';
             $mongoId = new MongoId();
             $this->collection->findOne(['_id' => $mongoId])->willReturn($todo);
-            $this->collection->save($todo)->shouldBeCalled();
+            $this->collection->save($this->data)->shouldBeCalled();
 
             return $this->controller->edit((string) $mongoId, $this->request);
         };

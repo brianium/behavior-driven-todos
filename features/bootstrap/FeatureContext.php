@@ -51,7 +51,7 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     public function iHaveATodo($todoText)
     {
         $collection = self::getTodoCollection();
-        $collection->insert(['label' => $todoText]);
+        $collection->insert(['label' => $todoText, 'done' => false]);
     }
 
     /**
