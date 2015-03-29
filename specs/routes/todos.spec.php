@@ -16,7 +16,7 @@ describe('/todos/{id}', function () {
 
             $response = $this->client->getResponse();
 
-            assert($response->getStatusCode() === 400);
+            assert($response->getStatusCode() === 422);
         });
 
     });
@@ -29,7 +29,7 @@ describe('/todos/{id}', function () {
 
             $response = $this->client->getResponse();
 
-            assert($response->getStatusCode() === 400);
+            assert($response->getStatusCode() === 422);
         });
 
     });

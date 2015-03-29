@@ -49,11 +49,8 @@ class TodosController
     {
         $payload = json_decode($request->getContent(), true);
         $payload['done'] = false;
-        if (! $this->todos->findOne(['label' => $payload['label']])) {
-            $this->todos->insert($payload);
-            return JsonResponse::create($payload);
-        }
-        return JsonResponse::create(['error' => 'Duplicate todo found'], 400);
+        $this->todos->insert($payload);
+        return JsonResponse::create($payload);
     }
 
     /**
@@ -73,12 +70,7 @@ class TodosController
 
         $payload = json_decode($request->getContent(), true);
         $todo = array_merge($todo, $payload);
-
-        if (!isset($payload['label']) || ! $this->todos->findOne(['label' => $payload['label']])) {
-            $this->todos->save($todo);
-            return JsonResponse::create($todo);
-        }
-
-        return JsonResponse::create(['error' => 'Duplicate todo found'], 400);
+        $this->todos->save($todo);
+        return JsonResponse::create($todo);
     }
 }
