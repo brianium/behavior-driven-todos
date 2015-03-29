@@ -7,4 +7,4 @@ Scenario: marking a single todo as done
   Given I have a todo "Get groceries"
   And I am on "/"
   When I check "todo_0"
-  Then I should see 1 "todo-complete" element
+  Then I should see 1 ".todo-complete" element after waiting

@@ -8,7 +8,6 @@ use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Behat\Event\ScenarioEvent;
 
-
 /**
  * Defines application features from the specific context.
  */
@@ -40,17 +39,27 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     /**
      * @Then I should see :arg1 after waiting
      */
-    public function iShouldSeeAfterWaiting($arg1)
+    public function iShouldSeeAfterWaiting($text)
     {
-        $this->getSession()->wait(5000, "document.documentElement.innerHTML.indexOf('$arg1') > -1;");
+        $this->getSession()->wait(10000, "document.documentElement.innerHTML.indexOf('$text') > -1");
+        $this->assertPageContainsText($text);
     }
 
     /**
      * @Given I have a todo :arg1
      */
-    public function iHaveATodo($arg1)
+    public function iHaveATodo($todoText)
     {
         $collection = self::getTodoCollection();
-        $collection->insert(['label' => $arg1]);
+        $collection->insert(['label' => $todoText]);
+    }
+
+    /**
+     * @Then I should see :arg2 :arg1 element after waiting
+     */
+    public function iShouldSeeElementAfterWaiting($number, $selector)
+    {
+        $this->getSession()->wait(10000, "document.querySelectorAll('$selector').length === $number");
+        $this->assertNumElements($number, $selector);
     }
 }
