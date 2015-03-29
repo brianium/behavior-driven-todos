@@ -123,10 +123,39 @@
   }
 
   /**
+   * Delete a todo
+   *
+   * @param {Event} e
+   * @return {Promise}
+   */
+  function deleteTodo(e) {
+    var checkbox = $(e.target).prev('input');
+    return [$.ajax({
+      method: 'DELETE',
+      url: '/todos/' + checkbox.data('id')
+    }), checkbox[0]];
+  }
+
+  /**
+   * Remove a result
+   *
+   * @param {Array} result a promise at index 0 and the todo at index 1
+   */
+  function removeTodo(result) {
+    var promise = result[0],
+        todo = result[1];
+
+    promise.done(function () {
+      $(todo.parentNode).remove();
+    });
+  }
+
+  /**
    * Create event streams
    */
   add.click(_.compose(postCreate(errorMessage, list), create, append(list, todo)));
   list.delegate('input[type=checkbox]', 'change', _.compose(postToggle, toggleTodo));
+  list.delegate('.todo-delete', 'click', _.compose(removeTodo, deleteTodo));
   complete.click(completeAll(list, postToggle));
 
 })();
