@@ -16,24 +16,12 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     private static $app;
 
     /**
-     * @BeforeSuite
+     * @BeforeScenario
      */
-    public static function before()
+    public function beforeEach()
     {
-        $collection = self::getTodoCollection();
+        $collection = $this->getTodoCollection();
         $collection->drop();
-    }
-
-    /**
-     * Fetch the mongo collection of todos
-     */
-    private static function getTodoCollection()
-    {
-        if (!isset(self::$app)) {
-            self::$app = include __DIR__ . '/../../app/app.php';
-        }
-        $collection = self::$app['mongo-client']->brianium->todos;
-        return $collection;
     }
 
     /**
@@ -61,5 +49,26 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     {
         $this->getSession()->wait(10000, "document.querySelectorAll('$selector').length === $number");
         $this->assertNumElements($number, $selector);
+    }
+
+    /**
+     * @Given I have a done todo :arg1
+     */
+    public function iHaveADoneTodo($todoText)
+    {
+        $collection = self::getTodoCollection();
+        $collection->insert(['label' => $todoText, 'done' => true]);
+    }
+
+    /**
+     * Fetch the mongo collection of todos
+     */
+    private function getTodoCollection()
+    {
+        if (!isset(self::$app)) {
+            self::$app = include __DIR__ . '/../../app/app.php';
+        }
+        $collection = self::$app['mongo-client']->brianium->todos;
+        return $collection;
     }
 }
