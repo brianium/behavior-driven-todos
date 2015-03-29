@@ -51,14 +51,6 @@ describe('TodosController', function () {
 
             assert($todo->label == 'Get groceries');
         });
-
-        it('should return an error response if the todo already exists', function () {
-            $this->collection->findOne(['label' => 'Get groceries'])->willReturn(new stdClass);
-
-            $response = $this->controller->create($this->request);
-
-            assert($response->getStatusCode() === 400);
-        });
     });
 
     describe('->edit()', function () {

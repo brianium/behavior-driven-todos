@@ -19,7 +19,8 @@
         "behat/mink": "~1.6",
         "behat/mink-extension": "~2.0",
         "behat/mink-selenium2-driver": "~1.2",
-        "peridot-php/peridot-prophecy-plugin": "~1.1"
+        "peridot-php/peridot-prophecy-plugin": "~1.1",
+        "peridot-php/peridot-httpkernel-plugin": "~1.1"
     },
     "autoload": {
       "psr-4": {

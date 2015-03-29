@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "126f79f53af89aaf15365f7a4fb8c980",
+    "hash": "fa75dafb421331b456b043e23b837060",
     "packages": [
         {
             "name": "pimple/pimple",
@@ -1120,6 +1120,46 @@
             "time": "2015-02-24 15:08:30"
         },
         {
+            "name": "peridot-php/peridot-httpkernel-plugin",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/peridot-php/peridot-httpkernel-plugin.git",
+                "reference": "dbbbdef3d632caaa444ff7538f1cac42916608f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/peridot-php/peridot-httpkernel-plugin/zipball/dbbbdef3d632caaa444ff7538f1cac42916608f0",
+                "reference": "dbbbdef3d632caaa444ff7538f1cac42916608f0",
+                "shasum": ""
+            },
+            "require": {
+                "peridot-php/peridot": "~1.0",
+                "symfony/browser-kit": "~2.0"
+            },
+            "require-dev": {
+                "silex/silex": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Peridot\\Plugin\\HttpKernel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Scaturro",
+                    "email": "scaturrob@gmail.com"
+                }
+            ],
+            "description": "A Peridot plugin to simplify testing HttpKernel applications",
+            "time": "2014-10-24 14:18:04"
+        },
+        {
             "name": "peridot-php/peridot-prophecy-plugin",
             "version": "1.1.0",
             "source": {
@@ -1682,6 +1722,62 @@
             "time": "2015-02-25 20:15:02"
         },
         {
+            "name": "symfony/browser-kit",
+            "version": "v2.6.5",
+            "target-dir": "Symfony/Component/BrowserKit",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/BrowserKit.git",
+                "reference": "329bdc10bff1e365abb8a3388d60a65630daf705"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/BrowserKit/zipball/329bdc10bff1e365abb8a3388d60a65630daf705",
+                "reference": "329bdc10bff1e365abb8a3388d60a65630daf705",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/dom-crawler": "~2.0,>=2.0.5"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~2.0,>=2.0.5",
+                "symfony/phpunit-bridge": "~2.7",
+                "symfony/process": "~2.0,>=2.0.5"
+            },
+            "suggest": {
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\BrowserKit\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony BrowserKit Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-03-13 13:21:46"
+        },
+        {
             "name": "symfony/class-loader",
             "version": "v2.6.5",
             "target-dir": "Symfony/Component/ClassLoader",
@@ -1955,6 +2051,60 @@
             "description": "Symfony DependencyInjection Component",
             "homepage": "http://symfony.com",
             "time": "2015-03-17 12:44:40"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "v2.6.5",
+            "target-dir": "Symfony/Component/DomCrawler",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/DomCrawler.git",
+                "reference": "896d1fb78832e8c4a4e4e8565ffdf668a53e518f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/896d1fb78832e8c4a4e4e8565ffdf668a53e518f",
+                "reference": "896d1fb78832e8c4a4e4e8565ffdf668a53e518f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~2.3",
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony DomCrawler Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-03-12 10:28:44"
         },
         {
             "name": "symfony/filesystem",

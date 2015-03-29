@@ -13,8 +13,12 @@ $app['mongo-client'] = $app->share(function () {
     return new MongoClient();
 });
 
+$app['todos-collection'] = $app->share(function () use ($app) {
+    return $app['mongo-client']->brianium->todos;
+});
+
 $app['todos.controller'] = $app->share(function () use ($app) {
-    $collection = $app['mongo-client']->brianium->todos;
+    $collection = $app['todos-collection'];
     $twig = $app['twig'];
     return new Brianium\Todos\Controller\TodosController($collection, $twig);
 });
