@@ -88,14 +88,6 @@ describe('TodosController', function () {
             assert($todo->done, 'todo is not done');
         });
 
-        it('should return an error response if the todo already exists', function () use ($edit) {
-            $this->collection->findOne(['label' => 'Get groceries'])->willReturn(new stdClass);
-
-            $response = $edit();
-
-            assert($response->getStatusCode() === 400);
-        });
-
         it('should return a not found response if the todo does not exist', function () {
             $mongoId = new MongoId();
             $this->collection->findOne(['_id' => $mongoId])->willReturn(null);
