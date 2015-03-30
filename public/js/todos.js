@@ -4,6 +4,7 @@
       add = $('#add'),
       list = $('#todos'),
       complete = $('#complete-all'),
+      clear = $('#clear-completed'),
       errorMessage = $('#error');
 
   /**
@@ -17,8 +18,10 @@
   function append(list, input) {
     return function () {
       var val = input.val(),
-          count = list.children('li').length;
-      list.append('<li>' + val + ' <input type="checkbox" name="todo_' + count + '" /></li>');
+          index = list.children('li').length,
+          check = '<input type="checkbox" name="todo_' + index + '" />',
+          del = '<div class="todo-delete todo-delete-' + index + '">x</div>';
+      list.append('<li>' + val + check + del + '</li>');
       return val;
     };
   }
@@ -39,7 +42,7 @@
   }
 
   /**
-   * Returns an event handler for an error response.
+   * Returns an event handler for a creation response.
    *
    * @param {jQuery} errorContainer the element to append an error message to
    * @param {jQuery} list the list containing the invalid item
@@ -47,12 +50,17 @@
    */
   function postCreate(errorContainer, list) {
     return function (promise) {
-      promise.fail(function (xhr) {
-        if (xhr.status == 422) {
-          errorContainer.text("Todo already exists");
-          list.find('li:last-child').remove();
-        }
-      });
+      var todo = list.find('li:last-child');
+      promise
+        .done(function (resp) {
+          todo.find('input[type=checkbox]').data('id', resp._id.$id);
+        })
+        .fail(function (xhr) {
+          if (xhr.status == 422) {
+            errorContainer.text("Todo already exists");
+            todo.remove();
+          }
+        });
     };
   }
 
@@ -123,6 +131,23 @@
   }
 
   /**
+   * Returns an event handler for removing completed todos.
+   *
+   * @param {jQuery} list
+   * @param {Function} success
+   * @return {Function}
+   */
+  function clearCompleted(list, success) {
+    var completed = list.children('.todo-complete');
+    return function() {
+      completed.each(function (i, li) {
+        var e = {target: $(li).find('.todo-delete')[0]};
+        _.compose(success, deleteTodo).call(null, e);
+      });
+    }
+  }
+
+  /**
    * Delete a todo
    *
    * @param {Event} e
@@ -157,5 +182,6 @@
   list.delegate('input[type=checkbox]', 'change', _.compose(postToggle, toggleTodo));
   list.delegate('.todo-delete', 'click', _.compose(removeTodo, deleteTodo));
   complete.click(completeAll(list, postToggle));
+  clear.click(clearCompleted(list, removeTodo));
 
 })();

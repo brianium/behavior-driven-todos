@@ -88,17 +88,6 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
     }
 
     /**
-     * Fetch the mongo collection of todos
-     */
-    private function getTodoCollection()
-    {
-        if (!isset(self::$app)) {
-            self::$app = include __DIR__ . '/../../app/app.php';
-        }
-        return self::$app['todos-collection'];
-    }
-
-    /**
      * @When I click :arg1
      */
     public function iClick($selector)
@@ -113,5 +102,16 @@ class FeatureContext extends MinkContext implements Context, SnippetAcceptingCon
         }
 
         $element->click();
+    }
+
+    /**
+     * Fetch the mongo collection of todos
+     */
+    private function getTodoCollection()
+    {
+        if (!isset(self::$app)) {
+            self::$app = include __DIR__ . '/../../app/app.php';
+        }
+        return self::$app['todos-collection'];
     }
 }
