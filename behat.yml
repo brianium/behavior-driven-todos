@@ -1,7 +1,7 @@
 default:
   extensions:
     Behat\MinkExtension:
-      base_url: 'http://todos.com'
+      base_url: 'http://localhost:4000/'
       sessions:
         default:
           selenium2:

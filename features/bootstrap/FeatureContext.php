@@ -7,13 +7,40 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Behat\Event\ScenarioEvent;
+use Symfony\Component\Process\Process;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext
 {
+    /**
+     * @var Silex\Application
+     */
     private static $app;
+
+    /**
+     * @var Process
+     */
+    private static $process;
+
+    /**
+     * @BeforeSuite
+     */
+    public static function beforeAll()
+    {
+        $public = realpath(__DIR__ . '/../../public');
+        self::$process = new Process("php -S localhost:4000 -t $public");
+        self::$process->start();
+    }
+
+    /**
+     * @AfterSuite
+     */
+    public static function afterAll()
+    {
+        self::$process->stop();
+    }
 
     /**
      * @BeforeScenario
