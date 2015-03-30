@@ -9,7 +9,7 @@
 
   /**
    * Returns an event handler that appends
-   * text from input to a list element.
+   * text from input to a list element
    *
    * @param {jQuery} list
    * @param {jQuery} input
@@ -42,7 +42,7 @@
   }
 
   /**
-   * Returns an event handler for a creation response.
+   * Returns an event handler for a creation response
    *
    * @param {jQuery} errorContainer the element to append an error message to
    * @param {jQuery} list the list containing the invalid item
@@ -115,7 +115,7 @@
 
   /**
    * Returns an event handler for completing
-   * all todos.
+   * all todos
    *
    * @param {jQuery} list
    * @param {Function} success
@@ -131,7 +131,7 @@
   }
 
   /**
-   * Returns an event handler for removing completed todos.
+   * Returns an event handler for removing completed todos
    *
    * @param {jQuery} list
    * @param {Function} success
