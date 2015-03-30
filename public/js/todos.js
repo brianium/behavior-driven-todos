@@ -53,7 +53,7 @@
       var todo = list.find('li:last-child');
       promise
         .done(function (resp) {
-          todo.find('input[type=checkbox]').data('id', resp._id.$id);
+          todo.find('input[type=checkbox]').attr('data-id', resp._id.$id);
         })
         .fail(function (xhr) {
           if (xhr.status == 422) {
@@ -121,8 +121,8 @@
    * @param {Function} success
    */
   function completeAll(list, success) {
-    var pending = list.children('li').not('.todo-complete');
     return function() {
+      var pending = list.children('li').not('.todo-complete');
       pending.each(function (i, li) {
         var checkbox = $(li).find('input[type=checkbox]');
         _.compose(success, updateTodo).call(null, checkbox[0], true);
@@ -138,8 +138,8 @@
    * @return {Function}
    */
   function clearCompleted(list, success) {
-    var completed = list.children('.todo-complete');
     return function() {
+      var completed = list.children('.todo-complete');
       completed.each(function (i, li) {
         var e = {target: $(li).find('.todo-delete')[0]};
         _.compose(success, deleteTodo).call(null, e);
