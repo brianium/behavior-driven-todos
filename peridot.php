@@ -11,4 +11,9 @@ return function($emitter) {
     $app['exception_handler']->disable();
     $app['todos-collection'] = $app['mongo-client']->test->todos;
     HttpKernelPlugin::register($emitter, $app);
+
+    $emitter->on('peridot.start', function ($env) {
+        $definition = $env->getDefinition();
+        $definition->getArgument('path')->setDefault('specs');
+    });
 };
