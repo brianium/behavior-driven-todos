@@ -8,14 +8,8 @@ Scenario: adding a todo
   Given I am on "/"
   When I fill in "todo" with "Get groceries"
   And I press "add"
-  Then I should see "Get groceries"
-
-Scenario: revisiting added todos
-  Given I am on "/"
-  When I fill in "todo" with "Pick up dinner"
-  And I press "add"
   And I reload the page
-  Then I should see "Pick up dinner"
+  Then I should see "Get groceries"
 
 Scenario: adding a duplicate todo
   Given I have a done todo "Pick up dinner"
