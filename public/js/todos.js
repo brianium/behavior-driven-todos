@@ -71,7 +71,7 @@
    * @param {Boolean} done
    * @return {Promise}
    */
-  function updateTodo(todo, done) {
+  function update(todo, done) {
     return [$.ajax({
       method: 'PUT',
       url: '/todos/' + todo.dataset.id,
@@ -87,9 +87,9 @@
    * @param {Event} e
    * @return {Promise}
    */
-  function toggleTodo(e) {
+  function toggle(e) {
     var checkbox = e.target;
-    return updateTodo(checkbox, checkbox.checked);
+    return update(checkbox, checkbox.checked);
   }
 
   /**
@@ -125,7 +125,7 @@
       var pending = list.children('li').not('.todo-complete');
       pending.each(function (i, li) {
         var checkbox = $(li).find('input[type=checkbox]');
-        _.compose(success, updateTodo).call(null, checkbox[0], true);
+        _.compose(success, update).call(null, checkbox[0], true);
       });
     }
   }
@@ -142,7 +142,7 @@
       var completed = list.children('.todo-complete');
       completed.each(function (i, li) {
         var e = {target: $(li).find('.todo-delete')[0]};
-        _.compose(success, deleteTodo).call(null, e);
+        _.compose(success, del).call(null, e);
       });
     }
   }
@@ -153,7 +153,7 @@
    * @param {Event} e
    * @return {Promise}
    */
-  function deleteTodo(e) {
+  function del(e) {
     var checkbox = $(e.target).prev('input');
     return [$.ajax({
       method: 'DELETE',
@@ -162,11 +162,11 @@
   }
 
   /**
-   * Remove a result
+   * Remove a todo node
    *
    * @param {Array} result a promise at index 0 and the todo at index 1
    */
-  function removeTodo(result) {
+  function removeNode(result) {
     var promise = result[0],
         todo = result[1];
 
@@ -179,9 +179,9 @@
    * Create event streams
    */
   add.click(_.compose(postCreate(errorMessage, list), create, append(list, todo)));
-  list.delegate('input[type=checkbox]', 'change', _.compose(postToggle, toggleTodo));
-  list.delegate('.todo-delete', 'click', _.compose(removeTodo, deleteTodo));
+  list.delegate('input[type=checkbox]', 'change', _.compose(postToggle, toggle));
+  list.delegate('.todo-delete', 'click', _.compose(removeNode, del));
   complete.click(completeAll(list, postToggle));
-  clear.click(clearCompleted(list, removeTodo));
+  clear.click(clearCompleted(list, removeNode));
 
 })();
